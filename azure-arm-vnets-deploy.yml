@@ -1,4 +1,5 @@
 # Azure DevOps pipeline for Azure deployment
+name: 'az_arm_checkov_tagging_deploy'
 variables:
 - group: checkovtags
 
