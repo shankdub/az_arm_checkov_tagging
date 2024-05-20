@@ -2,7 +2,7 @@
 
 ## Overview
 
-`az_arm_checkov_tagging` is a Terraform-based project aimed at managing and enforcing Azure resource tagging policies using Checkov, a static code analysis tool for infrastructure-as-code (IaC). This project helps ensure that all Azure resources are appropriately tagged, which is crucial for resource management, billing, and compliance.
+`az_arm_checkov_tagging` is a Terraform-based project aimed at managing and enforcing Azure resource tagging policies using Checkov, a static code analysis tool for infrastructure-as-code (IaC). This project helps ensure that all Azure resources are appropriately tagged at time of ARM deployment, which is crucial for resource management, billing, and compliance.
 
 ## Features
 
@@ -72,8 +72,7 @@ The pipeline is triggered on changes to the `main` branch excluding changes to p
     - Install Checkov.
     - Run Checkov on ARM json.
     - Publish Checkov test results.
-    - If succeeds
-
+    - IF test results contain failures THEN fail pipeline, ELSE deploy ARM Template.
 
 ## Configuration
 
