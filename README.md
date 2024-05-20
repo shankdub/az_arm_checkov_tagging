@@ -41,7 +41,7 @@
 
 To scan the ARM code with Checkov:
 ```bash
-checkov -f arm_vnets.json --output junitxml > checkov-arm-tagging-report.xml --external-checks-dir ./checkov
+checkov -f arm_vnets.json --external-checks-dir ./checkov --output junitxml > Checkov-ARM-Tagging-Report.xml
 ```
 
 ### Azure DevOps Pipeline
@@ -52,15 +52,15 @@ The repository includes an Azure DevOps pipeline (`terraform-scan-plan-apply.yml
 
 #### Variables
 
-The pipeline uses a variable group named `checkovtags`.
+The pipeline uses a variable group named `checkovtags`. The following
 - `azureResourceManagerConnection`: The name of the Azure Resource Manager service connection in your Azure DevOps project.
 - `subscriptionId`: The ID of your Azure subscription.
 - `resourceGroupName`: The name of the Azure resource group where your resources will be deployed.
 - `location`: The Azure region where your resources will be deployed.
-- `templateLocation`: The location of the ARM template. 'Linked artifact' means that the ARM template is located in the build artifacts for this pipeline. This is the default.
-- `csmFile`: The path to your ARM template file.
-- `deploymentMode`: How Azure should handle existing resources during deployment. 'Incremental' mode means that Azure will leave existing resources that aren't specified in the template unchanged.
-- `condition`: When the deployment should be performed. `succeeded()` means that the deployment will only be performed if all previous steps in the pipeline have succeeded.
+- `templateLocation`: `Linked artifact` The location of the ARM template. 'Linked artifact' means that the ARM template is located in the build artifacts for this pipeline. This is the default.
+- `csmFile`: The path to your ARM template file. Example: `azure_vnets.json` or `$templateFile`  etc
+- `deploymentMode`: `Incremental` How Azure should handle existing resources during deployment. 'Incremental' mode means that Azure will leave existing resources that aren't specified in the template unchanged.
+- `condition`: `succeeded()` When the deployment should be performed. This means that the deployment will only be performed if all previous steps in the pipeline have succeeded.
 
 #### Trigger
 
@@ -72,13 +72,7 @@ The pipeline is triggered on changes to the `main` branch excluding changes to p
     - Install Checkov.
     - Run Checkov on ARM json.
     - Publish Checkov test results.
-
-3. **Script**:
-    - Install Checkov.
-    - Initialize Terraform.
-    - Plan Terraform deployment.
-    - Convert the plan to JSON and run Checkov.
-    - Publish Checkov test results.
+    - If succeeds
 
 
 ## Configuration
