@@ -1,0 +1,12 @@
+---
+metadata:
+  name: "VNET REGION EASTUS2 Only"
+  id: "CUSTOM_YAML"
+  category: "GENERAL_SECURITY"
+definition:
+  cond_type: attribute
+  resource_types:
+  - azurerm_virtual_network
+  attribute: location
+  operator: not_equals_ignore_case
+  value: eastus2
