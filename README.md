@@ -53,6 +53,14 @@ The repository includes an Azure DevOps pipeline (`terraform-scan-plan-apply.yml
 #### Variables
 
 The pipeline uses a variable group named `checkovtags`.
+- `azureResourceManagerConnection`: The name of the Azure Resource Manager service connection in your Azure DevOps project.
+- `subscriptionId`: The ID of your Azure subscription.
+- `resourceGroupName`: The name of the Azure resource group where your resources will be deployed.
+- `location`: The Azure region where your resources will be deployed.
+- `templateLocation`: The location of the ARM template. 'Linked artifact' means that the ARM template is located in the build artifacts for this pipeline. This is the default.
+- `csmFile`: The path to your ARM template file.
+- `deploymentMode`: How Azure should handle existing resources during deployment. 'Incremental' mode means that Azure will leave existing resources that aren't specified in the template unchanged.
+- `condition`: When the deployment should be performed. `succeeded()` means that the deployment will only be performed if all previous steps in the pipeline have succeeded.
 
 #### Trigger
 
