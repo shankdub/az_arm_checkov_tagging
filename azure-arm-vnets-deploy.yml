@@ -1,0 +1,58 @@
+# Azure DevOps pipeline for Azure deployment
+variables:
+- group: checkovtags
+
+# specific path build
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - '*'
+    exclude:
+    - '/*.yml'
+    - '/*.yaml'
+pool:
+    vmImage: 'ubuntu-latest'
+
+steps:
+- checkout: self
+
+- task: UsePythonVersion@0
+  inputs:
+      versionSpec: '3.8'
+      addToPath: true
+
+- script: |
+        python -m pip install --upgrade pip
+        pip install checkov
+  displayName: 'Install Checkov'
+
+- script: |
+        checkov -f $(System.DefaultWorkingDirectory)/$(templateFile) --external-checks-dir $(System.DefaultWorkingDirectory)/checkov -o junitxml > $(System.DefaultWorkingDirectory)/Checkov-ARM-Tagging-Report.xml
+  displayName: 'Run Checkov'
+  # Publish test results for modules
+- task: PublishTestResults@2
+  displayName: Publish Checkov Module Test Results
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/*Checkov-ARM-Tagging-Report.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    mergeTestResults: false
+    testRunTitle: Checkov Tagging Scan
+    failTaskOnFailedTests: true
+    publishRunAttachments: true
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+      deploymentScope: Resource Group
+      azureResourceManagerConnection: 'azterraformspn'
+      subscriptionId: $(subscriptionId)
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: $(resourceGroupName)
+      location: $(location)
+      templateLocation: 'Linked artifact'
+      csmFile: $(templateFile)
+      deploymentMode: 'Incremental'
+  condition: succeeded()
