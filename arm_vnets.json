@@ -1,0 +1,159 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+    "apiVersion": "2017-06-01",
+      "name": "checkov_vnet_1",
+      "location": "[parameters('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.0.0.0/20"
+          ]
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+    "apiVersion": "2017-06-01",
+      "name": "checkov_vnet_2",
+      "location": "[parameters('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.0.16.0/20"
+          ]
+        }
+      },
+      "tags": {
+        "Environment": "Development"
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+        "apiVersion": "2017-06-01",
+        "name": "checkov_vnet_3",
+        "location": "[parameters('location')]",
+        "properties": {
+            "addressSpace": {
+                "addressPrefixes": [
+                    "10.0.32.0/20"
+                ]
+            }
+        },
+        "tags": {
+            "environment": "dev"
+        }
+    },
+    {
+        "type": "Microsoft.Network/virtualNetworks",
+        "apiVersion": "2017-06-01",
+        "name": "checkov_vnet_4",
+        "location": "[parameters('location')]",
+        "properties": {
+            "addressSpace": {
+                "addressPrefixes": [
+                    "10.0.48.0/20"
+                ]
+            }
+        },
+        "tags": {
+            "projectNumber": "fs00001"
+        }
+    },
+    {
+        "type": "Microsoft.Network/virtualNetworks",
+        "apiVersion": "2017-06-01",
+        "name": "checkov_vnet_5",
+        "location": "[parameters('location')]",
+        "properties": {
+            "addressSpace": {
+                "addressPrefixes": [
+                    "10.0.64.0/20"
+                ]
+            }
+        },
+        "tags": {
+            "Creator": "jsmith"
+        }
+    },
+    {
+        "type": "Microsoft.Network/virtualNetworks",
+        "apiVersion": "2017-06-01",
+        "name": "checkov_vnet_6",
+        "location": "[parameters('location')]",
+        "properties": {
+            "addressSpace": {
+                "addressPrefixes": [
+                    "10.0.80.0/20"
+                ]
+            }
+        },
+        "tags": {
+            "Creator": "jsmith",
+            "projectNumber": "fs00001",
+            "environment": "dev"
+        }
+    },
+    {
+        "type": "Microsoft.Network/virtualNetworks",
+        "apiVersion": "2017-06-01",
+        "name": "checkov_vnet_7",
+        "location": "[parameters('location')]",
+        "properties": {
+            "addressSpace": {
+                "addressPrefixes": [
+                    "10.0.96.0/20"
+                ]
+            }
+        },
+        "tags": {
+            "Name": "my-vnet-7",
+            "Description": "To support project X"
+        }
+    },
+    {
+        "type": "Microsoft.Network/virtualNetworks",
+        "apiVersion": "2017-06-01",
+        "name": "checkov_vnet_8",
+        "location": "[parameters('location')]",
+        "properties": {
+            "addressSpace": {
+                "addressPrefixes": [
+                    "10.0.112.0/20"
+                ]
+            }
+        },
+        "tags": {
+            "Name": "my-vnet-8",
+            "Description": "To support project X"
+        }
+    },
+    {
+        "type": "Microsoft.Network/virtualNetworks",
+        "apiVersion": "2017-06-01",
+      "name": "checkov_vnet_9",
+      "location": "[parameters('location')]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.0.128.0/20"
+          ]
+        }
+      },
+      "tags": {
+        "Name": "my-vnet-9",
+        "Description": "To support project X",
+        "projectNumber": "fs88884"
+      }
+    }
+  ]
+}
