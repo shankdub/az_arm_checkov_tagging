@@ -15,6 +15,7 @@
 - `.gitignore`: Specifies files and directories to be ignored by Git.
 - `azure_arm_vnets_deploy.yml`: An Azure DevOps pipeline file to automate the ARM deployment and testing processes.
 - `arm_vnets.json`: Defines Azure Virtual Networks with specific tagging for deployment via ARM.
+- `checkov/`: Directory containing Checkov custom policies.
 
 ## Prerequisites
 
@@ -67,12 +68,12 @@ The pipeline uses a variable group named `checkovtags`. The following
 The pipeline is triggered on changes to the `main` branch excluding changes to pipeline yaml.
 
 #### Steps
-1. **Task** - UsePythonVerson@0
+1. **Task** - UsePythonVersion:
+   - Install Checkov.
 2. **Script**:
-    - Install Checkov.
-    - Run Checkov on ARM json.
-    - Publish Checkov test results.
-    - IF test results contain failures THEN fail pipeline, ELSE deploy ARM Template.
+   - Run Checkov on ARM JSON.
+   - Publish Checkov test results.
+   - If test results contain failures, then fail pipeline, else deploy ARM template.
 
 ## Configuration
 
